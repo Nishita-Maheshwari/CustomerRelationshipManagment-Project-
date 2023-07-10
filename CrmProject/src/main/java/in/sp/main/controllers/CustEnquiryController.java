@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -100,8 +101,23 @@ public class CustEnquiryController
 	}
 	
 	@GetMapping("/customerFolloupPage")
-	public String customerFolloupPage()
+	public String customerFolloupPage(
+			Model model,
+			@RequestParam(name = "selectedDate", required = false) String selectedDate)
 	{
+		if(selectedDate != null)
+		{
+			List<CustFollowup> list_followups = custFollowupService.getFollowupForProvidedDate(selectedDate);
+			model.addAttribute("model_followups", list_followups);
+		}
+		else
+		{
+			LocalDate ld = LocalDate.now();
+			String date1 = ld.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			
+			List<CustFollowup> list_followups = custFollowupService.getFollowupForProvidedDate(date1);
+			model.addAttribute("model_followups", list_followups);
+		}
 		return "customer-followups";
 	}
 	

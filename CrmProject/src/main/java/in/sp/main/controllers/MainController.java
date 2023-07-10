@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.sp.main.entity.Employee;
 import in.sp.main.service.EmpService;
+import in.sp.main.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -208,9 +209,16 @@ public class MainController
 		return "profile-employee";
 	}
 	
+	@Autowired
+	ProductService productService;
+	
 	@GetMapping("/homeEmployee")
-	public String openEmpHome()
+	public String openEmpHome(Model model)
 	{
+		List<Object[]> list = productService.getPurchasedCourseCountService();
+		
+		model.addAttribute("model_count_course_sale", list);
+		
 		return "home-employee";
 	}
 }

@@ -21,6 +21,33 @@
 			{
 				var selectedcourse = document.getElementById('coursename').value;
 				//alert(selectedcourse);
+				
+				if(selectedcourse !== "")
+				{
+					var xhr = new XMLHttpRequest();
+					xhr.open("GET", "/getCoursePrices?selectedcourse="+selectedcourse, true);
+					xhr.onreadystatechange = function() {
+						if(xhr.readyState === 4 && xhr.status === 200)
+						{
+							var response = JSON.parse(xhr.responseText);
+							
+							var product = response;
+							
+							var discountedprice = product.discountedprice;
+							var originalprice = product.originalprice;
+							
+							document.getElementById("originalpriceid").textContent = originalprice;
+							document.getElementById("discountedpriceid").textContent = discountedprice;
+							
+							$("#priceDivId").css("visibility", "visible");
+						}
+					};
+					xhr.send();
+				}
+				else
+				{
+					$("#priceDivId").css("visibility", "hidden");
+				}
 			}
 		</script>
 	</head>
@@ -71,6 +98,9 @@
 										<form:options items="${model_coursename_list}" />
 									</form:select>
 									<form:errors path="coursename" cssClass="error_message_design" />
+								</div>
+								<div class="mb-3" id="priceDivId" style="visibility: hidden;">
+									Price to Pay : <strong><del>Rs. <span id="originalpriceid" style="color:red"></span></del></strong> &nbsp;&nbsp; Rs. <span id="discountedpriceid" class="text-primary"></span>
 								</div>
 								<input type="submit" value="Sell Course" class="btn btn-primary" />
 							</form:form>
