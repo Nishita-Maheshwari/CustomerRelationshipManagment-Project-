@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.sp.main.entity.Employee;
 import in.sp.main.service.EmpService;
@@ -41,7 +42,12 @@ public class MainController
 	
 	int PAGE_SIZE = 5;
 	@GetMapping("/emplist")
-	public String openEmpListPage(Model model, @RequestParam(defaultValue = "1") int page)
+	public String openEmpListPage(
+				@RequestParam(name = "redirectAttr_success", required = false) String success,
+				@RequestParam(name = "redirectAttr_error", required = false) String error,
+				Model model,
+				@RequestParam(defaultValue = "1") int page
+			)
 	{
 		List<Employee> list_emp = empService.getAllEmployeesService();
 		
@@ -57,6 +63,9 @@ public class MainController
 		model.addAttribute("model_list_emp", new_list_emp);
 		model.addAttribute("model_total_pages", TOTAL_PAGES);
 		model.addAttribute("model_current_page", page);
+		
+		model.addAttribute("model_success", success);
+		model.addAttribute("model_error", error);
 		
 		return "employees-list";
 	}
@@ -82,11 +91,11 @@ public class MainController
 		}
 		else
 		{
-			Employee emp = empService.login(myemail);
+			Employee emp = empService.authenticate(myemail);
 			if(emp != null && emp.getPassword().equals(mypass))
 			{
 				session.setAttribute("session_employee", emp);
-				page = "profile-employee";
+				page = "home-employee";
 			}
 			else
 			{
@@ -140,20 +149,68 @@ public class MainController
 	}
 	
 	@GetMapping("/deleteEmployee")
-	public String deleteEmployee(@RequestParam("empEmail") String email, Model model)
+	public String deleteEmployee(@RequestParam("empEmail") String email, RedirectAttributes redirectAttributes)
 	{
 		//System.out.println("Email : "+email);
 		
 		boolean status = empService.deleteEmployeeService(email);
 		if(status)
 		{
-			model.addAttribute("model_success", "Employee deleted successfully");
+			redirectAttributes.addAttribute("redirectAttr_success", "Employee deleted successfully");
 		}
 		else
 		{
-			model.addAttribute("model_error", "Employee not deleted due to some error");
+			redirectAttributes.addAttribute("redirectAttr_error", "Employee not deleted due to some error");
 		}
 		
-		return "employees-list";
+		return "redirect:/emplist";
+	}
+	
+	@GetMapping("/editEmployee")
+	public String openEditEmpPage(@RequestParam("empEmail") String email, Model model)
+	{
+		//System.out.println("Email id : "+email);
+		
+		Employee emp = empService.authenticate(email);
+		
+		model.addAttribute("modelEmpAttr", new Employee());
+		model.addAttribute("model_emp", emp);
+		
+		return "edit-employee";
+	}
+	
+	@PostMapping("/updateEmpForm")
+	public String updateEmployeeForm(
+											@Valid @ModelAttribute("modelEmpAttr") Employee emp,
+											BindingResult br,
+											Model model
+										)
+	{
+		if(!br.hasErrors())
+		{
+			boolean status = empService.updateEmployeeService(emp);
+			if(status)
+			{
+				model.addAttribute("model_success", "Employee updated successfully");
+			}
+			else
+			{
+				model.addAttribute("model_error", "Employee not updated due to some error");
+			}
+		}
+		
+		return "edit-employee";
+	}
+	
+	@GetMapping("/profileEmployee")
+	public String openEmpProfile()
+	{
+		return "profile-employee";
+	}
+	
+	@GetMapping("/homeEmployee")
+	public String openEmpHome()
+	{
+		return "home-employee";
 	}
 }

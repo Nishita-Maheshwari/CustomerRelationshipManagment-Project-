@@ -24,6 +24,10 @@
         		$('#deleteEmpConfirmationModal').modal('show');
         		$('#deleteButton').attr('href','/deleteEmployee?empEmail='+empEmail);
         	}
+        	function editEmployee(empEmail)
+        	{
+        		window.location.href="/editEmployee?empEmail="+encodeURIComponent(empEmail);
+        	}
         </script>
         
     </head>
@@ -72,7 +76,7 @@
                     		<td> ${employee.getEmail()} </td>
                     		<td> ${employee.getPhoneno()} </td>
                     		<td style="text-align: center;"> 
-                    			<a href="#"> <i class="bi bi-pencil-square"></i> </a>
+                    			<button class="btn btn-secondary" onclick="editEmployee('${employee.getEmail()}')"><i class="bi bi-pencil-fill"></i></button>
                     		</td>
                     		<td style="text-align: center;"> 
                     			<button class="btn btn-danger" onclick="confirmEmpDelete('${employee.getEmail()}')"><i class="bi bi-trash3-fill"></i></button>

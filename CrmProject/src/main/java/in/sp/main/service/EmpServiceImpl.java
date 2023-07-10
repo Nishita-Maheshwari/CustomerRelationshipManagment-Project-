@@ -38,7 +38,7 @@ public class EmpServiceImpl implements EmpService
 	}
 	
 	@Override
-	public Employee login(String email)
+	public Employee authenticate(String email)
 	{
 		Employee emp = empRepository.findByEmail(email);
 		return emp;
@@ -58,6 +58,33 @@ public class EmpServiceImpl implements EmpService
 			e.printStackTrace();
 			status = false;
 		}
+		return status;
+	}
+	
+	@Override
+	public boolean updateEmployeeService(Employee emp)
+	{
+		boolean status = false;
+		
+		try
+		{
+			Employee existingEmp = empRepository.findByEmail(emp.getEmail());
+			if(existingEmp != null)
+			{
+				existingEmp.setName(emp.getName());
+				existingEmp.setPassword(emp.getPassword());
+				existingEmp.setPhoneno(emp.getPhoneno());
+				
+				empRepository.save(existingEmp);
+				status = true;
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			status = false;
+		}
+		
 		return status;
 	}
 }

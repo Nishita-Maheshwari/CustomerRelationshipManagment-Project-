@@ -11,12 +11,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-3">
-                        <a href="profileAdmin" class="navbar-brand text-light"> CRM Application </a>
+                        <a href="homeEmployee" class="navbar-brand text-light"> CRM Application </a>
                     </div>
                     <div class="col-6"> </div>
                     <div class="col-3">
-                        <a class="navbar-brand text-light" href="#">
-                            <img src="images/admin_profile_pic.png" alt="Welcome Admin" style="width:40px;" class="rounded-pill">
+                        <a class="navbar-brand text-light" href="profileEmployee">
+                            <img src="images/admin_profile_pic.png" alt="" style="width:40px;" class="rounded-pill">
                             ${session_employee.getName()}
                         </a>
                         <a href="logout" class="text-light"> Logout </a>
@@ -33,21 +33,13 @@
                 <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
                     <ul class="navbar-nav">
                     	<li class="nav-item">
-                            <a class="nav-link" href="profileEmployee">Home</a>
+                            <a class="nav-link" href="homeEmployee">Home</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Employees</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="addEmployee">Add Employee</a></li>
-                                <li><a class="dropdown-item" href="emplist">Employee's List</a></li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Customer's Enquiry</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Products</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Add Products</a></li>
-                                <li><a class="dropdown-item" href="#">Products's List</a></li>
-                            </ul>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Customer Follow Ups</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Complaints</a>

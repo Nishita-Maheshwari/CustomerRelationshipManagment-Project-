@@ -16,9 +16,8 @@
         <jsp:include page="header-employee.jsp" />
 
         <div class="container mt-3">
-            <h2> Hello : ${session_employee.getName()}</h2>
-            <h4 class="text-secondary"> Email : ${session_employee.getEmail()}</h4>
-            <h4 class="text-secondary"> Phone No. : ${session_employee.getPhoneno()}</h4>            
+            <h2>Hello : ${session_employee.getName()}</h2>
+            <p> Now you can handle the below functionalities...!! </p>            
         </div>
 
     </body>
