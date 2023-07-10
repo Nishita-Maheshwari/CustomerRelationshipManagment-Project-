@@ -9,4 +9,5 @@ public interface ProductService
 	public boolean addProductService(Product product);
 	public List<Product> getAllProductsListService();
 	public Product getProductDetailsService(String coursename);
+	public List<String> getAllCourseNameService();
 }

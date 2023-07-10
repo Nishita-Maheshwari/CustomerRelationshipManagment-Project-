@@ -43,4 +43,10 @@ public class ProductServiceImpl implements ProductService
 	{
 		return productRepository.findByCoursename(coursename);
 	}
+	
+	@Override
+	public List<String> getAllCourseNameService()
+	{
+		return productRepository.findCourseName();
+	}
 }

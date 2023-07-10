@@ -36,10 +36,10 @@
                             <a class="nav-link" href="homeEmployee">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Customer's Enquiry</a>
+                            <a class="nav-link" href="customerEnquiryPage">Customer's Enquiry</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Customer Follow Ups</a>
+                            <a class="nav-link" href="customerFolloupPage">Customer Follow Ups</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Complaints</a>
