@@ -33,9 +33,6 @@ public class CustEnquiry
 	@Column(name = "status")
 	private String status;
 	
-	@Column(name = "followup_date")
-	private String followupdate;
-	
 	@Column(name = "call_to")
 	private String callto;
 	
@@ -89,12 +86,6 @@ public class CustEnquiry
 	}
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	public String getFollowupdate() {
-		return followupdate;
-	}
-	public void setFollowupdate(String followupdate) {
-		this.followupdate = followupdate;
 	}
 	public String getCallto() {
 		return callto;

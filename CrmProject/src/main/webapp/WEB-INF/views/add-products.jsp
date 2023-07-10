@@ -18,9 +18,8 @@
 	<body>
 		<jsp:include page="header-admin.jsp" />
 	
-		<div class="container-fluid">
+		<div class="container-fluid" style="float: left;">
 			<div class="container">
-	
 				<c:if test="${not empty model_success}">
 					<div class="row">
 						<div class="alert alert-success alert-dismissible fade show"
@@ -42,72 +41,70 @@
 						</div>
 					</div>
 				</c:if>
-	
-				<div class="row">
-					<div class="col-3"></div>
-					<div class="col-6 d-flex justify-content-center">
-						<div class="addemp_div_design bg-light">
-							<h3>Add Course Details</h3>
-							<br />
-							<form:form action="addCourseForm" method="post" enctype="multipart/form-data" modelAttribute="productAttr">
-								<div class="mb-3">
-									<label class="form-label">Course Name</label>
-									<form:input path="coursename" cssClass="form-control" />
-									<form:errors path="coursename" cssClass="error_message_design" />
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Course Syllabus</label>
-									<form:textarea path="syllabus" cssClass="form-control" />
-									<form:errors path="syllabus" cssClass="error_message_design" />
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Course Original Price</label>
-									<form:input path="originalprice" cssClass="form-control" />
-									<form:errors path="originalprice" cssClass="error_message_design" />
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Course Discounted Price</label>
-									<form:input path="discountedprice" cssClass="form-control" />
-									<form:errors path="discountedprice" cssClass="error_message_design" />
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Course Validity</label>
-									<form:input path="coursevalidity" cssClass="form-control" />
-									<form:errors path="coursevalidity" cssClass="error_message_design" />
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Course Image</label>
-									<form:input type="file" path="courseimage" cssClass="form-control" />
-									<form:errors path="courseimage" cssClass="error_message_design" />
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Trainer's Name</label>
-									<form:input path="trainersname" cssClass="form-control" />
-									<form:errors path="trainersname" cssClass="error_message_design" />
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Trainer's Details</label>
-									<form:textarea path="trainersdetails" cssClass="form-control" />
-									<form:errors path="trainersdetails" cssClass="error_message_design" />
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Trainer's Image</label>
-									<form:input type="file" path="trainersimage" cssClass="form-control" />
-									<form:errors path="trainersimage" cssClass="error_message_design" />
-								</div>
-								<div class="mb-3">
-									<label class="form-label">Other Details</label>
-									<form:textarea path="otherdetails" cssClass="form-control" />
-									<form:errors path="otherdetails" cssClass="error_message_design" />
-								</div>
-								<input type="submit" value="Add Course" class="btn btn-primary" />
-							</form:form>
+				
+				<h4 style="text-align: center; padding-top: 40px;"> Add Course Details </h4>
+				
+				<form:form action="addCourseForm" method="post" enctype="multipart/form-data" modelAttribute="productAttr">
+					<div class="row form_div_design bg-light">
+						<div class="col-5">
+							<div class="mb-3">
+								<label class="form-label">Course Name</label>
+								<form:input path="coursename" cssClass="form-control" />
+								<form:errors path="coursename" cssClass="error_message_design" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Course Syllabus</label>
+								<form:textarea path="syllabus" cssClass="form-control" />
+								<form:errors path="syllabus" cssClass="error_message_design" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Course Original Price</label>
+								<form:input path="originalprice" cssClass="form-control" />
+								<form:errors path="originalprice" cssClass="error_message_design" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Course Discounted Price</label>
+								<form:input path="discountedprice" cssClass="form-control" />
+								<form:errors path="discountedprice" cssClass="error_message_design" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Course Validity</label>
+								<form:input path="coursevalidity" cssClass="form-control" />
+								<form:errors path="coursevalidity" cssClass="error_message_design" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Course Image</label>
+								<form:input type="file" path="courseimage" cssClass="form-control" />
+								<form:errors path="courseimage" cssClass="error_message_design" />
+							</div>
+						</div>
+						<div class="col-2"></div>
+						<div class="col-5">
+							<div class="mb-3">
+								<label class="form-label">Trainer's Name</label>
+								<form:input path="trainersname" cssClass="form-control" />
+								<form:errors path="trainersname" cssClass="error_message_design" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Trainer's Details</label>
+								<form:textarea path="trainersdetails" cssClass="form-control" />
+								<form:errors path="trainersdetails" cssClass="error_message_design" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Trainer's Image</label>
+								<form:input type="file" path="trainersimage" cssClass="form-control" />
+								<form:errors path="trainersimage" cssClass="error_message_design" />
+							</div>
+							<div class="mb-3">
+								<label class="form-label">Other Details</label>
+								<form:textarea path="otherdetails" cssClass="form-control" />
+								<form:errors path="otherdetails" cssClass="error_message_design" />
+							</div>
+							<input type="submit" value="Add Course" class="btn btn-primary" />
 						</div>
 					</div>
-					<div class="col-3"></div>
-				</div>
+				</form:form>
 			</div>
 		</div>
-	
 	</body>
 </html>

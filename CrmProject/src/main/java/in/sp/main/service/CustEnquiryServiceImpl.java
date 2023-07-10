@@ -1,5 +1,7 @@
 package in.sp.main.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +31,17 @@ public class CustEnquiryServiceImpl implements CustEnquiryService
 		}
 		
 		return status;
+	}
+	
+	@Override
+	public boolean isPhoneNumberExists(String phoneNumber)
+	{
+		return custEnquiryRepository.existsByPhoneno(phoneNumber);
+	}
+	
+	@Override
+	public List<CustEnquiry> getCustAllEnquiryHistory(String phoneno)
+	{
+		return custEnquiryRepository.findAllByPhoneno(phoneno);
 	}
 }

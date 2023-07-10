@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import in.sp.main.entity.CustEnquiry;
+import in.sp.main.entity.CustFollowup;
 import in.sp.main.entity.Employee;
+import in.sp.main.model.CustEnquiryModel;
 import in.sp.main.service.CustEnquiryService;
+import in.sp.main.service.CustFollowupService;
 import in.sp.main.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 
@@ -29,6 +33,9 @@ public class CustEnquiryController
 	@Autowired
 	CustEnquiryService custEnquiryService;
 	
+	@Autowired
+	CustFollowupService custFollowupService;
+	
 	@GetMapping("/customerEnquiryPage")
 	public String customerEnquiryPage(
 			Model model,
@@ -38,7 +45,7 @@ public class CustEnquiryController
 		List<String> list_coursenames = productService.getAllCourseNameService();
 		model.addAttribute("model_coursename_list", list_coursenames);
 		
-		model.addAttribute("modelCustEnquiryAttr", new CustEnquiry());
+		model.addAttribute("modelCustEnquiryAttr", new CustEnquiryModel());
 		
 		model.addAttribute("model_success", success);
 		model.addAttribute("model_error", error);
@@ -49,7 +56,7 @@ public class CustEnquiryController
 	@PostMapping("/custEnquiryForm")
 	public String custEnquiryForm(
 			HttpSession session,
-			@ModelAttribute("modelCustEnquiryAttr") CustEnquiry custEnquiry,
+			@ModelAttribute("modelCustEnquiryAttr") CustEnquiryModel custEnquiryModel,
 			RedirectAttributes redirectAttributes
 			)
 	{
@@ -66,12 +73,21 @@ public class CustEnquiryController
 			empemail = employee.getEmail();
 		}
 		
+		String phoneno = custEnquiryModel.getPhoneno();
+		
+		CustEnquiry custEnquiry = custEnquiryModel.getCustEnquiry();
+		custEnquiry.setPhoneno(phoneno);
 		custEnquiry.setEnquirydate(date1);
 		custEnquiry.setEnquirytime(time1);
 		custEnquiry.setEmpemail(empemail);
 		
-		boolean status = custEnquiryService.addCustEnquiryDetailsService(custEnquiry);
-		if(status)
+		CustFollowup custFollowup = custEnquiryModel.getCustFollowup();
+		custFollowup.setPhoneno(phoneno);
+		
+		boolean status1 = custEnquiryService.addCustEnquiryDetailsService(custEnquiry);
+		boolean status2 = custFollowupService.addCustFollowupDateService(custFollowup);
+		
+		if(status1 && status2)
 		{
 			redirectAttributes.addAttribute("redirect_success", "Customer enquiry details added successfully");
 		}
@@ -87,5 +103,25 @@ public class CustEnquiryController
 	public String customerFolloupPage()
 	{
 		return "customer-followups";
+	}
+	
+	@GetMapping("/checkPhoneNumberAvailability")
+	@ResponseBody
+	public String checkPhoneNo(@RequestParam("phoneNumber") String phoneno)
+	{
+		boolean status = custEnquiryService.isPhoneNumberExists(phoneno);
+		if(status)
+		{
+			return "exist";
+		}
+		return "not_exist";
+	}
+	
+	@GetMapping("/custEnquiryHistoryPage")
+	public String opencustEnquiryHistoryPage(@RequestParam("phno") String phoneno, Model model)
+	{
+		List<CustEnquiry> list_custenq = custEnquiryService.getCustAllEnquiryHistory(phoneno);
+		model.addAttribute("model_custenq", list_custenq);
+		return "cusenq-history";
 	}
 }
