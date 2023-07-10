@@ -36,3 +36,9 @@
     float: left;
     margin-top: 50px;
 }
+.error_message_design
+{
+	color: red;
+	font-size: 14px;
+	font-weight: bold;
+}

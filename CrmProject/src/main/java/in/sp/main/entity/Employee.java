@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "register")
@@ -13,9 +15,18 @@ public class Employee
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	//@NotEmpty(message = "Name cannot be empty")
+	@Pattern(regexp = "^[a-zA-Z ]{5,30}$", message = "Name is not valid")
 	private String name;
+	
+	@Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$", message = "Email is not valid")
 	private String email;
+	
+	@Pattern(regexp = "^[a-zA-Z0-9]{5,30}$", message = "Password is not valid")
 	private String password;
+	
+	@Pattern(regexp = "^[0-9]{10}$", message = "Phone no. is not valid")
 	private String phoneno;
 	
 	public int getId() {

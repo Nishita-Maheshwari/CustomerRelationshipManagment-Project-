@@ -5,13 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import in.sp.main.entity.Employee;
 import in.sp.main.service.EmpService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class MainController 
@@ -36,11 +39,25 @@ public class MainController
 		return "login";
 	}
 	
+	int PAGE_SIZE = 5;
 	@GetMapping("/emplist")
-	public String openEmpListPage(Model model)
+	public String openEmpListPage(Model model, @RequestParam(defaultValue = "1") int page)
 	{
 		List<Employee> list_emp = empService.getAllEmployeesService();
-		model.addAttribute("model_list_emp", list_emp);
+		
+		int TOTAL_PRODUCTS = list_emp.size();
+		int TOTAL_PAGES = (int) Math.ceil((double) TOTAL_PRODUCTS / PAGE_SIZE);
+		
+		
+		int LIST_START_INDEX = (page - 1) * PAGE_SIZE;
+		int LIST_END_INDEX = Math.min(LIST_START_INDEX + PAGE_SIZE, TOTAL_PRODUCTS);
+		
+		List<Employee> new_list_emp = list_emp.subList(LIST_START_INDEX, LIST_END_INDEX);
+		
+		model.addAttribute("model_list_emp", new_list_emp);
+		model.addAttribute("model_total_pages", TOTAL_PAGES);
+		model.addAttribute("model_current_page", page);
+		
 		return "employees-list";
 	}
 	
@@ -81,34 +98,35 @@ public class MainController
 	}
 	
 	@GetMapping("/addEmployee")
-	public String openAddEmpPage()
+	public String openAddEmpPage(Model model)
 	{
+		model.addAttribute("modelEmpAttr", new Employee());
 		return "add-employee";
 	}
 	
 	@PostMapping("/addEmpForm")
 	public String registerEmployeeForm(
-											@RequestParam("name1") String empname,
-											@RequestParam("email1") String empemail,
-											@RequestParam("pass1") String emppass,
-											@RequestParam("phoneno1") String empphoneno,
+											@Valid @ModelAttribute("modelEmpAttr") Employee emp,
+											BindingResult br,
 											Model model
 										)
 	{
-		Employee emp = new Employee();
-		emp.setName(empname);
-		emp.setEmail(empemail);
-		emp.setPassword(emppass);
-		emp.setPhoneno(empphoneno);
-		
-		boolean status = empService.addEmployeeService(emp);
-		if(status)
+		if(!br.hasErrors())
 		{
-			model.addAttribute("model_success", "Employee added successfully");
-		}
-		else
-		{
-			model.addAttribute("model_error", "Employee not added due to some error");
+			boolean status = empService.addEmployeeService(emp);
+			if(status)
+			{
+				model.addAttribute("model_success", "Employee added successfully");
+			}
+			else
+			{
+				model.addAttribute("model_error", "Employee not added due to some error");
+			}
+			
+			emp.setName("");
+			emp.setEmail("");
+			emp.setPassword("");
+			emp.setPhoneno("");
 		}
 		
 		return "add-employee";
@@ -119,5 +137,23 @@ public class MainController
 	{
 		session.invalidate();
 		return "login";
+	}
+	
+	@GetMapping("/deleteEmployee")
+	public String deleteEmployee(@RequestParam("empEmail") String email, Model model)
+	{
+		//System.out.println("Email : "+email);
+		
+		boolean status = empService.deleteEmployeeService(email);
+		if(status)
+		{
+			model.addAttribute("model_success", "Employee deleted successfully");
+		}
+		else
+		{
+			model.addAttribute("model_error", "Employee not deleted due to some error");
+		}
+		
+		return "employees-list";
 	}
 }

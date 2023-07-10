@@ -9,4 +9,5 @@ public interface EmpService
 	public Employee login(String email);
 	public boolean addEmployeeService(Employee emp);
 	public List<Employee> getAllEmployeesService();
+	public boolean deleteEmployeeService(String email);
 }

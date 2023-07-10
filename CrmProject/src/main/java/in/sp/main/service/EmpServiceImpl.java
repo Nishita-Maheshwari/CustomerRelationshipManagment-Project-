@@ -43,4 +43,21 @@ public class EmpServiceImpl implements EmpService
 		Employee emp = empRepository.findByEmail(email);
 		return emp;
 	}
+	
+	@Override
+	public boolean deleteEmployeeService(String email)
+	{
+		boolean status = false;
+		try
+		{
+			empRepository.deleteByEmail(email);
+			status = true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			status = false;
+		}
+		return status;
+	}
 }
