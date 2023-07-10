@@ -17,7 +17,7 @@
                     <div class="col-3">
                         <a class="navbar-brand text-light" href="#">
                             <img src="images/admin_profile_pic.png" alt="Welcome Admin" style="width:40px;" class="rounded-pill">
-                            Admin
+                            ${session_employee.getName()}
                         </a>
                         <a href="logout" class="text-light"> Logout </a>
                     </div>
@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
                     <ul class="navbar-nav">
                     	<li class="nav-item">
-                            <a class="nav-link" href="profileAdmin">Home</a>
+                            <a class="nav-link" href="profileEmployee">Home</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Employees</a>

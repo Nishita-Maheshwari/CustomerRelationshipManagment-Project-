@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,6 +11,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
         <link rel="stylesheet" type="text/css" href="css/style.css" />
     </head>
@@ -21,27 +25,27 @@
             <table class="table table-light table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
+                        <th>Full Name</th>
                         <th>Email</th>
+                        <th>Phone No.</th>
+                        <th style="text-align: center;">Update</th>
+                        <th style="text-align: center;">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                    </tr>
+                    <c:forEach var="employee" items="${model_list_emp}">
+                    	<tr>
+                    		<td> ${employee.getName()} </td>
+                    		<td> ${employee.getEmail()} </td>
+                    		<td> ${employee.getPhoneno()} </td>
+                    		<td style="text-align: center;"> 
+                    			<a href="#"> <i class="bi bi-pencil-square"></i> </a>
+                    		</td>
+                    		<td style="text-align: center;"> 
+                    			<a href="#"> <i class="bi bi-trash3-fill"></i> </a>
+                    		</td>
+                    	</tr>
+                    </c:forEach>
                 </tbody>
             </table>
         </div>
