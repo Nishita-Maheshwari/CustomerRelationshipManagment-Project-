@@ -122,6 +122,12 @@ public class CustEnquiryController
 	{
 		List<CustEnquiry> list_custenq = custEnquiryService.getCustAllEnquiryHistory(phoneno);
 		model.addAttribute("model_custenq", list_custenq);
+		
+		model.addAttribute("modelCustEnquiryAttr", new CustEnquiryModel());
+		
+		List<String> list_coursenames = productService.getAllCourseNameService();
+		model.addAttribute("model_coursename_list", list_coursenames);
+		
 		return "cusenq-history";
 	}
 }

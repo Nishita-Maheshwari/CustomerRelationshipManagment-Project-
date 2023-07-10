@@ -42,7 +42,7 @@
                             <a class="nav-link" href="customerFolloupPage">Customer Follow Ups</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Complaints</a>
+                            <a class="nav-link" href="saleCourse">Sale Course</a>
                         </li>
                     </ul>
                 </div>

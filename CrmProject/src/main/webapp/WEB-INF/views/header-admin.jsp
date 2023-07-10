@@ -49,9 +49,6 @@
                                 <li><a class="dropdown-item" href="productsList">Products's List</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Complaints</a>
-                        </li>
                     </ul>
                 </div>
             </div>

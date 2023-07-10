@@ -68,6 +68,18 @@
 					window.location.href="/custEnquiryHistoryPage?phno="+encodeURIComponent(phoneNumber);
 				}
 			}
+			function handleOption()
+			{
+				var statusOption = document.getElementById('statusInput').value;
+				if(statusOption === "1")
+				{
+					$('#followupdateInput').prop('readonly', false);
+				}
+				else
+				{
+					$('#followupdateInput').prop('readonly', true);
+				}
+			}
 		</script>
 	</head>
 	<body>
@@ -143,7 +155,7 @@
 							</div>
 							<div class="mb-3">
 								<label class="form-label">Status</label>
-								<form:select path="custEnquiry.status" id="statusInput" cssClass="form-select">
+								<form:select path="custEnquiry.status" id="statusInput" cssClass="form-select" onchange="handleOption()" >
 									<form:option value="">Select Status</form:option>
 									<form:option value="1">Open (1)</form:option>
 									<form:option value="2">Interested - Closed (2)</form:option>
