@@ -49,7 +49,7 @@
 						<div class="addemp_div_design bg-light">
 							<h3>Add Course Details</h3>
 							<br />
-							<form:form action="addCourseForm" method="post" modelAttribute="">
+							<form:form action="addCourseForm" method="post" enctype="multipart/form-data" modelAttribute="productAttr">
 								<div class="mb-3">
 									<label class="form-label">Course Name</label>
 									<form:input path="coursename" cssClass="form-control" />
@@ -57,7 +57,7 @@
 								</div>
 								<div class="mb-3">
 									<label class="form-label">Course Syllabus</label>
-									<form:input path="syllabus" cssClass="form-control" />
+									<form:textarea path="syllabus" cssClass="form-control" />
 									<form:errors path="syllabus" cssClass="error_message_design" />
 								</div>
 								<div class="mb-3">
@@ -77,7 +77,7 @@
 								</div>
 								<div class="mb-3">
 									<label class="form-label">Course Image</label>
-									<form:input path="courseimage" cssClass="form-control" />
+									<form:input type="file" path="courseimage" cssClass="form-control" />
 									<form:errors path="courseimage" cssClass="error_message_design" />
 								</div>
 								<div class="mb-3">
@@ -87,17 +87,17 @@
 								</div>
 								<div class="mb-3">
 									<label class="form-label">Trainer's Details</label>
-									<form:input path="trainersdetails" cssClass="form-control" />
+									<form:textarea path="trainersdetails" cssClass="form-control" />
 									<form:errors path="trainersdetails" cssClass="error_message_design" />
 								</div>
 								<div class="mb-3">
 									<label class="form-label">Trainer's Image</label>
-									<form:input path="trainersimage" cssClass="form-control" />
+									<form:input type="file" path="trainersimage" cssClass="form-control" />
 									<form:errors path="trainersimage" cssClass="error_message_design" />
 								</div>
 								<div class="mb-3">
 									<label class="form-label">Other Details</label>
-									<form:input path="otherdetails" cssClass="form-control" />
+									<form:textarea path="otherdetails" cssClass="form-control" />
 									<form:errors path="otherdetails" cssClass="error_message_design" />
 								</div>
 								<input type="submit" value="Add Course" class="btn btn-primary" />

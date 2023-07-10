@@ -58,7 +58,7 @@
         
         <div class="container mt-3">
             <h2>Employee's List</h2>
-            <p> Below table displays only 10 employees list </p>            
+            <p> Below table displays only 5 employees list </p>            
             <table class="table table-light table-bordered table-striped">
                 <thead>
                     <tr>
